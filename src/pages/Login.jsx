@@ -46,7 +46,7 @@ export default function Login() {
         <div className="login-card">
           <div className="login-header">
             <a href="#/" className="login-logo">
-              <span className="logo-accent">G</span>uilherme
+              Guilherme Santana
             </a>
             <h1 className="login-title">Painel Admin</h1>
             <p className="login-subtitle">

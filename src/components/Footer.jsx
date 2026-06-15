@@ -32,7 +32,7 @@ export default function Footer({ siteConfig }) {
       <div className="container">
         <div className="footer-content">
           <div className="footer-logo">
-            <span className="logo-accent">G</span>uilherme
+            Guilherme Santana
           </div>
           <p className="footer-text">
             © {new Date().getFullYear()} Guilherme. Todos os direitos

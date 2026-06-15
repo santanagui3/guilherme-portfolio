@@ -66,7 +66,7 @@ export default function Navbar() {
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="navbar">
         <div className="container">
           <a href="#/" className="navbar-logo">
-            <span className="logo-accent">G</span>uilherme
+            Guilherme Santana
             <span className="logo-dot"></span>
           </a>
 

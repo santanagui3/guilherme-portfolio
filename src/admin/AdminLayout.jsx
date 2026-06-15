@@ -16,7 +16,7 @@ export default function AdminLayout({ children }) {
       <nav className="admin-navbar">
         <div className="admin-navbar-inner">
           <a href="#/" className="navbar-logo">
-            <span className="logo-accent">G</span>uilherme
+            Guilherme Santana
             <span className="admin-badge-label">Admin</span>
           </a>
 
