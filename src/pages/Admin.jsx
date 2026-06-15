@@ -4,11 +4,24 @@ import { useAuth } from '../contexts/AuthContext';
 import AdminLayout from '../admin/AdminLayout';
 import ProjectList from '../admin/ProjectList';
 import ProjectForm from '../admin/ProjectForm';
+import HeroEditor from '../admin/HeroEditor';
+import AboutEditor from '../admin/AboutEditor';
+import ContactEditor from '../admin/ContactEditor';
 import { useProjects } from '../hooks/useProjects';
+import { useSiteConfig } from '../hooks/useSiteConfig';
+
+const TABS = [
+  { key: 'projects', label: '🎬 Projetos', icon: '🎬' },
+  { key: 'hero', label: '🏠 Início', icon: '🏠' },
+  { key: 'about', label: '👤 Sobre', icon: '👤' },
+  { key: 'contact', label: '📬 Contato', icon: '📬' },
+];
 
 export default function Admin() {
   const { currentUser, loading: authLoading } = useAuth();
   const { projects, loading, addProject, updateProject, deleteProject } = useProjects();
+  const { config, updateSection } = useSiteConfig();
+  const [activeTab, setActiveTab] = useState('projects');
   const [showForm, setShowForm] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
 
@@ -56,15 +69,18 @@ export default function Admin() {
     setEditingProject(null);
   };
 
-  return (
-    <AdminLayout>
-      {showForm ? (
-        <ProjectForm
-          project={editingProject}
-          onSave={handleSave}
-          onCancel={handleCancel}
-        />
-      ) : (
+  const renderContent = () => {
+    if (activeTab === 'projects') {
+      if (showForm) {
+        return (
+          <ProjectForm
+            project={editingProject}
+            onSave={handleSave}
+            onCancel={handleCancel}
+          />
+        );
+      }
+      return (
         <ProjectList
           projects={projects}
           loading={loading}
@@ -72,7 +88,42 @@ export default function Admin() {
           onEdit={handleEdit}
           onDelete={handleDelete}
         />
-      )}
+      );
+    }
+
+    if (activeTab === 'hero') {
+      return <HeroEditor config={config} onSave={updateSection} />;
+    }
+
+    if (activeTab === 'about') {
+      return <AboutEditor config={config} onSave={updateSection} />;
+    }
+
+    if (activeTab === 'contact') {
+      return <ContactEditor config={config} onSave={updateSection} />;
+    }
+  };
+
+  return (
+    <AdminLayout>
+      {/* Tabs */}
+      <div className="admin-tabs">
+        {TABS.map((tab) => (
+          <button
+            key={tab.key}
+            className={`admin-tab ${activeTab === tab.key ? 'active' : ''}`}
+            onClick={() => {
+              setActiveTab(tab.key);
+              setShowForm(false);
+              setEditingProject(null);
+            }}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {renderContent()}
     </AdminLayout>
   );
 }

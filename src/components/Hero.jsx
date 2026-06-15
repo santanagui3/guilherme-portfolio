@@ -1,4 +1,6 @@
-export default function Hero() {
+export default function Hero({ siteConfig }) {
+  const hero = siteConfig?.hero || {};
+
   const handleNavClick = (e, targetId) => {
     e.preventDefault();
     const target = document.getElementById(targetId);
@@ -26,19 +28,18 @@ export default function Hero() {
       <div className="hero-content">
         <div className="hero-badge">
           <span className="badge-dot"></span>
-          Disponível para projetos
+          {hero.badge || 'Produtor Audiovisual'}
         </div>
 
         <h1 className="hero-title">
-          <span className="title-line">Criando histórias</span>
+          <span className="title-line">{hero.titleLine1 || 'Criando'}</span>
           <span className="title-line">
-            através do <span className="title-accent">audiovisual</span>
+            <span className="title-accent">{hero.titleLine2 || 'Histórias Visuais'}</span>
           </span>
         </h1>
 
         <p className="hero-description">
-          Produzo vídeos, fotografias e motion graphics que transformam ideias em
-          experiências visuais memoráveis. Do conceito à pós-produção.
+          {hero.description || 'Produção audiovisual profissional com foco em storytelling cinematográfico. Do conceito à entrega final, transformo ideias em experiências visuais memoráveis.'}
         </p>
 
         <div className="hero-actions">

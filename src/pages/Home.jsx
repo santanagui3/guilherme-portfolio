@@ -4,16 +4,19 @@ import Portfolio from '../components/Portfolio';
 import About from '../components/About';
 import Contact from '../components/Contact';
 import Footer from '../components/Footer';
+import { useSiteConfig } from '../hooks/useSiteConfig';
 
 export default function Home() {
+  const { config } = useSiteConfig();
+
   return (
     <>
       <Navbar />
-      <Hero />
+      <Hero siteConfig={config} />
       <Portfolio />
-      <About />
-      <Contact />
-      <Footer />
+      <About siteConfig={config} />
+      <Contact siteConfig={config} />
+      <Footer siteConfig={config} />
     </>
   );
 }

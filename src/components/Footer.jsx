@@ -1,4 +1,6 @@
-export default function Footer() {
+export default function Footer({ siteConfig }) {
+  const contact = siteConfig?.contact || {};
+
   return (
     <footer className="footer">
       <div className="container">
@@ -11,36 +13,48 @@ export default function Footer() {
             reservados.
           </p>
           <div className="footer-socials">
-            <a
-              href="https://youtube.com/@guilherme"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social"
-              aria-label="YouTube"
-              id="footer-youtube"
-            >
-              ▶
-            </a>
-            <a
-              href="https://instagram.com/guilherme"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social"
-              aria-label="Instagram"
-              id="footer-instagram"
-            >
-              📷
-            </a>
-            <a
-              href="https://github.com/guilherme"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-social"
-              aria-label="GitHub"
-              id="footer-github"
-            >
-              ⌨
-            </a>
+            {contact.youtube && (
+              <a
+                href={contact.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social"
+                aria-label="YouTube"
+              >
+                ▶
+              </a>
+            )}
+            {contact.instagram && (
+              <a
+                href={contact.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social"
+                aria-label="Instagram"
+              >
+                📷
+              </a>
+            )}
+            {contact.linkedin && (
+              <a
+                href={contact.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-social"
+                aria-label="LinkedIn"
+              >
+                💼
+              </a>
+            )}
+            {contact.email && (
+              <a
+                href={`mailto:${contact.email}`}
+                className="footer-social"
+                aria-label="E-mail"
+              >
+                📧
+              </a>
+            )}
           </div>
         </div>
       </div>

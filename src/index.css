@@ -1884,6 +1884,121 @@ button {
 }
 
 /* ============================================
+   ADMIN TABS
+   ============================================ */
+.admin-tabs {
+  display: flex;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-2xl);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-sm);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-tab {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  font-family: var(--font-body);
+}
+
+.admin-tab:hover {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.admin-tab.active {
+  color: var(--color-accent);
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  border-bottom-color: var(--color-bg);
+  margin-bottom: -1px;
+}
+
+/* ============================================
+   ADMIN SECTION EDITORS
+   ============================================ */
+.admin-section-editor {
+  max-width: 800px;
+}
+
+.admin-section-header {
+  margin-bottom: var(--space-2xl);
+}
+
+.admin-section-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-bottom: var(--space-xs);
+}
+
+.admin-section-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.admin-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Stats/Skills Grid Inputs */
+.admin-stats-grid,
+.admin-skills-grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.admin-stat-row,
+.admin-skill-row {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.admin-stat-number {
+  width: 100px !important;
+  text-align: center;
+  font-weight: 600;
+}
+
+.admin-stat-label,
+.admin-skill-name {
+  flex: 1;
+}
+
+.admin-skill-icon {
+  width: 60px !important;
+  text-align: center;
+  font-size: var(--text-lg) !important;
+}
+
+/* Save Bar */
+.admin-save-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  padding-top: var(--space-xl);
+  border-top: 1px solid var(--color-border);
+}
+
+.admin-save-msg {
+  font-size: var(--text-sm);
+  color: #22c55e;
+  animation: fade-in-up 0.3s ease-out;
+}
+
+/* ============================================
    RESPONSIVE DESIGN
    ============================================ */
 @media (max-width: 1024px) {

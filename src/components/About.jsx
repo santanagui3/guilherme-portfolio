@@ -1,100 +1,80 @@
 import ScrollReveal from './ScrollReveal';
 
-export default function About() {
-  const handleNavClick = (e, targetId) => {
-    e.preventDefault();
-    const target = document.getElementById(targetId);
-    if (!target) return;
-    const navbarHeight = document.querySelector('.navbar')?.offsetHeight || 80;
-    window.scrollTo({
-      top: target.offsetTop - navbarHeight,
-      behavior: 'smooth',
-    });
-  };
+export default function About({ siteConfig }) {
+  const about = siteConfig?.about || {};
+  const base = import.meta.env.BASE_URL;
+
+  const defaultStats = [
+    { number: '50+', label: 'Projetos' },
+    { number: '3+', label: 'Anos Exp.' },
+    { number: '30+', label: 'Clientes' },
+  ];
+
+  const defaultSkills = [
+    { icon: '🎬', name: 'Produção de Vídeo' },
+    { icon: '📷', name: 'Fotografia' },
+    { icon: '✨', name: 'Motion Graphics' },
+    { icon: '🎨', name: 'Color Grading' },
+    { icon: '🎵', name: 'Sound Design' },
+    { icon: '✂️', name: 'Edição / Pós' },
+  ];
+
+  const stats = about.stats?.length > 0 ? about.stats : defaultStats;
+  const skills = about.skills?.length > 0 ? about.skills : defaultSkills;
+  const profileImage = about.profileImage || `${base}assets/images/profile.png`;
+
+  const text1 = about.text || 'Sou um <strong>profissional audiovisual</strong> apaixonado por contar histórias através de imagens em movimento.';
+  const text2 = about.text2 || 'Meu trabalho combina técnica apurada com <strong>visão criativa</strong>, utilizando as melhores ferramentas do mercado.';
 
   return (
     <section className="about" id="about">
       <div className="container">
+        <ScrollReveal>
+          <div className="section-header">
+            <div className="section-label">Quem Sou</div>
+            <h2 className="section-title">Sobre Mim</h2>
+          </div>
+        </ScrollReveal>
+
         <div className="about-grid">
-          {/* Image Side */}
           <ScrollReveal>
             <div className="about-image-wrapper">
               <div className="about-image">
                 <img
-                  src={`${import.meta.env.BASE_URL}assets/images/profile.png`}
+                  src={profileImage}
                   alt="Guilherme — Profissional audiovisual"
                 />
               </div>
               <div className="about-image-accent"></div>
-
               <div className="about-stats">
-                <div className="stat-card">
-                  <div className="stat-number">50+</div>
-                  <div className="stat-label">Projetos</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-number">5+</div>
-                  <div className="stat-label">Anos</div>
-                </div>
-                <div className="stat-card">
-                  <div className="stat-number">30+</div>
-                  <div className="stat-label">Clientes</div>
-                </div>
+                {stats.map((stat, i) => (
+                  <div className="stat-card" key={i}>
+                    <div className="stat-number">{stat.number}</div>
+                    <div className="stat-label">{stat.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </ScrollReveal>
 
-          {/* Content Side */}
           <ScrollReveal>
             <div className="about-content">
-              <div className="section-label">Quem sou eu</div>
-              <h2
-                className="section-title"
-                style={{ textAlign: 'left', marginBottom: 'var(--space-xl)' }}
-              >
-                Sobre Mim
-              </h2>
+              <p className="about-text" dangerouslySetInnerHTML={{ __html: text1 }}></p>
+              <p className="about-text" dangerouslySetInnerHTML={{ __html: text2 }}></p>
 
-              <p className="about-text">
-                Olá! Sou <strong>Guilherme</strong>, profissional audiovisual
-                apaixonado por contar histórias através de imagens e sons. Com
-                experiência em{' '}
-                <strong>
-                  produção de vídeo, fotografia, motion graphics e pós-produção
-                </strong>
-                , transformo conceitos criativos em conteúdo visual impactante.
-              </p>
-              <p className="about-text">
-                Trabalho desde a concepção criativa até a entrega final,
-                garantindo qualidade cinematográfica em cada projeto. Minha
-                abordagem combina técnica refinada com{' '}
-                <strong>sensibilidade artística</strong>, sempre buscando a
-                melhor forma de comunicar cada mensagem.
-              </p>
-
-              <h3 className="skills-title">🛠 Ferramentas & Habilidades</h3>
+              <h3 className="skills-title">Especialidades</h3>
               <div className="skills-grid">
-                {[
-                  { icon: '🎬', name: 'Direção & Produção' },
-                  { icon: '📷', name: 'Fotografia & Câmera' },
-                  { icon: '🎨', name: 'After Effects & Motion' },
-                  { icon: '✂️', name: 'Premiere & DaVinci' },
-                  { icon: '🎵', name: 'Sound Design' },
-                  { icon: '🚁', name: 'Filmagem com Drone' },
-                ].map((skill) => (
-                  <div className="skill-item" key={skill.name}>
-                    <div className="skill-icon">{skill.icon}</div>
+                {skills.map((skill, i) => (
+                  <div className="skill-item" key={i}>
+                    <span className="skill-icon">{skill.icon}</span>
                     <span className="skill-name">{skill.name}</span>
                   </div>
                 ))}
               </div>
 
-              <a
-                href="#contact"
-                className="btn btn-primary"
-                onClick={(e) => handleNavClick(e, 'contact')}
-              >
-                Vamos trabalhar juntos
+              <a href="#contact" className="btn btn-primary">
+                Vamos Conversar
+                <span className="btn-icon">→</span>
               </a>
             </div>
           </ScrollReveal>
