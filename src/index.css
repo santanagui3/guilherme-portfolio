@@ -756,6 +756,7 @@ button {
 
 .about-image-wrapper {
   position: relative;
+  max-width: 500px;
 }
 
 .about-image {
@@ -767,7 +768,8 @@ button {
 
 .about-image img {
   width: 100%;
-  aspect-ratio: 4 / 5;
+  min-height: 500px;
+  aspect-ratio: 3 / 4;
   object-fit: cover;
 }
 
