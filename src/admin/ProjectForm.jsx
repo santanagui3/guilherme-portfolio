@@ -42,6 +42,13 @@ export default function ProjectForm({ project, onSave, onCancel }) {
     }
   }, [project]);
 
+  const extractYoutubeId = (url) => {
+    const match = url.match(
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/
+    );
+    return match ? match[1] : null;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {
@@ -50,6 +57,13 @@ export default function ProjectForm({ project, onSave, onCancel }) {
       if (name === 'category') {
         const cat = CATEGORIES.find((c) => c.value === value);
         updated.categoryLabel = cat ? cat.label : value;
+      }
+      // Auto-fetch YouTube thumbnail when URL is entered
+      if (name === 'videoUrl' && value.trim()) {
+        const videoId = extractYoutubeId(value);
+        if (videoId) {
+          updated.thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+        }
       }
       return updated;
     });
@@ -72,8 +86,9 @@ export default function ProjectForm({ project, onSave, onCancel }) {
     if (formData.type === 'video' && !formData.videoUrl.trim()) {
       newErrors.videoUrl = 'URL do YouTube é obrigatória';
     }
-    if (!project && !imageFile && !formData.thumbnailUrl) {
-      newErrors.image = 'Imagem de capa é obrigatória';
+    // Image is optional for videos (auto-uses YouTube thumbnail)
+    if (formData.type === 'image' && !project && !imageFile && !formData.thumbnailUrl) {
+      newErrors.image = 'Imagem é obrigatória';
     }
     return newErrors;
   };
@@ -135,11 +150,16 @@ export default function ProjectForm({ project, onSave, onCancel }) {
         <div className="admin-form-grid">
           {/* Left column - Image */}
           <div className="admin-form-left">
-            <label className="admin-form-label">Imagem de Capa</label>
+            <label className="admin-form-label">
+              {formData.type === 'video' ? 'Capa (automática do YouTube)' : 'Imagem de Capa'}
+            </label>
             <ImageUploader
               currentImage={formData.thumbnailUrl}
               onImageSelect={handleImageSelect}
             />
+            {formData.type === 'video' && formData.thumbnailUrl && formData.thumbnailUrl.includes('youtube') && (
+              <span className="admin-form-hint">✅ Thumbnail do YouTube detectada automaticamente. Você pode trocar por uma imagem personalizada se quiser.</span>
+            )}
             {errors.image && (
               <span className="admin-form-error">{errors.image}</span>
             )}
