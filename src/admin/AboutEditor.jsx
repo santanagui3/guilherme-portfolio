@@ -65,7 +65,7 @@ export default function AboutEditor({ config, onSave }) {
     setSaved(false);
   };
 
-  const compressImage = (file, maxWidth = 800, quality = 0.7) => {
+  const compressImage = (file, maxWidth = 1600, quality = 0.75) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -124,12 +124,10 @@ export default function AboutEditor({ config, onSave }) {
         {/* Profile Image */}
         <div className="form-group">
           <label>Foto de Perfil</label>
-          <div style={{ maxWidth: '300px' }}>
-            <ImageUploader
-              currentImage={form.profileImage}
-              onImageSelect={handleImageSelect}
-            />
-          </div>
+          <ImageUploader
+            currentImage={form.profileImage}
+            onImageSelect={handleImageSelect}
+          />
         </div>
 
         {/* Bio Text */}
