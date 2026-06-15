@@ -24,8 +24,12 @@ export default function Login() {
         setError('Email ou senha incorretos.');
       } else if (err.code === 'auth/too-many-requests') {
         setError('Muitas tentativas. Tente novamente em alguns minutos.');
+      } else if (err.code === 'auth/unauthorized-domain') {
+        setError('Domínio não autorizado. Adicione este domínio nas configurações do Firebase Authentication.');
+      } else if (err.code === 'auth/api-key-not-valid.-please-pass-a-valid-api-key.' || err.code === 'auth/invalid-api-key') {
+        setError('API Key do Firebase inválida. Verifique os secrets no GitHub.');
       } else {
-        setError('Erro ao fazer login. Verifique suas credenciais.');
+        setError(`Erro: ${err.code || err.message}`);
       }
     } finally {
       setLoading(false);
