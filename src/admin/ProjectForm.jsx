@@ -62,7 +62,7 @@ export default function ProjectForm({ project, onSave, onCancel }) {
       if (name === 'videoUrl' && value.trim()) {
         const videoId = extractYoutubeId(value);
         if (videoId) {
-          updated.thumbnailUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+          updated.thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
         }
       }
       return updated;

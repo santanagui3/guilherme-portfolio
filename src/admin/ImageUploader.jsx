@@ -1,9 +1,16 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
 export default function ImageUploader({ currentImage, onImageSelect }) {
   const [preview, setPreview] = useState(currentImage || null);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
+
+  // Sync preview when currentImage prop changes (e.g. YouTube auto-thumbnail)
+  useEffect(() => {
+    if (currentImage) {
+      setPreview(currentImage);
+    }
+  }, [currentImage]);
 
   const handleFile = useCallback((file) => {
     if (!file) return;
