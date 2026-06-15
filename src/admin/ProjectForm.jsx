@@ -250,19 +250,19 @@ export default function ProjectForm({ project, onSave, onCancel }) {
               <div className="form-group">
                 <label htmlFor="project-video-url">URL do YouTube</label>
                 <input
-                  type="url"
+                  type="text"
                   id="project-video-url"
                   name="videoUrl"
                   value={formData.videoUrl}
                   onChange={handleChange}
-                  placeholder="https://www.youtube.com/watch?v=..."
+                  placeholder="https://www.youtube.com/shorts/... ou /watch?v=..."
                   style={errors.videoUrl ? { borderColor: '#ef4444' } : undefined}
                 />
                 {errors.videoUrl && (
                   <span className="admin-form-error">{errors.videoUrl}</span>
                 )}
                 <span className="admin-form-hint">
-                  Cole o link do YouTube. Aceita formatos: youtube.com/watch?v=..., youtu.be/..., ou embed.
+                  Aceita: youtube.com/watch?v=..., youtube.com/shorts/..., youtu.be/..., ou embed.
                 </span>
               </div>
             )}
